@@ -30,7 +30,7 @@ client.on(Events.MessageCreate, async (message) => {
   // Check if the message contains any of the trigger words
   const containsTriggerWord = triggerWords.some(word => message.content.toLowerCase().includes(word.toLowerCase()));
 
-  if (containsTriggerWord) {
+  if (containsTriggerWord&&!message.author.globalName==="Kopro") {
     try {
       // Reply to the message
       await message.reply(`${message.author.globalName},\nYour message: "${message.content}"\nGaali mt de Gandu 😡👿.`);
