@@ -30,18 +30,18 @@ client.on(Events.MessageCreate, async (message) => {
   // Check if the message contains any of the trigger words
   const containsTriggerWord = triggerWords.some(word => message.content.toLowerCase().includes(word.toLowerCase()));
 
-  if (containsTriggerWord&&!message.author.globalName==="Kopro") {
-    try {
-      // Reply to the message
-      await message.reply(`${message.author.globalName},\nYour message: "${message.content}"\nGaali mt de Gandu 😡👿.`);
+ if (containsTriggerWord && message.author.globalName !== "Kopro") {
+  try {
+    // Reply to the message
+    await message.reply(`${message.author.globalName},\nYour message: "${message.content}"\nGaali mt de Gandu 😡👿.`);
 
-
-      // Delete the original message
-      await message.delete();
-    } catch (error) {
-      console.error('Error handling the message:', error);
-    }
+    // Delete the original message
+    await message.delete();
+  } catch (error) {
+    console.error('Error handling the message:', error);
   }
+}
+
 
   if (message.content.toLowerCase().startsWith("hi kop ka bot")&& message.author.globalName === "Kopro") {
     message.reply({
