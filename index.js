@@ -12,7 +12,7 @@ const client = new Client({
 
 // Define the words to look for
 const triggerWords = [
-  'madarchod', 'bhenchod', 'mc', 'bc', 'teri maa ki', 'maa',
+  'madarchod','bhadwa','bhadwe' 'bhenchod', 'mc', 'bc', 'teri maa ki', 'maa',
   'chutiya', 'gandu', 'harami', 'saala', 'kutta', 'suar', 
   'kaminey', 'ullu', 'ullu ka pattha', 'loda', 'lodu', 'chod',
   'randi', 'raand', 'chinal', 'kutti', 'chodu', 'bhosdike', 
