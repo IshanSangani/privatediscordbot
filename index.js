@@ -43,7 +43,8 @@ client.on(Events.MessageCreate, async (message) => {
     }
   }
 
-if (message.content.toLowerCase().startsWith("hi kop ka bot")&&message.author.username === "Kopro") {
+ const hiKopKaBotRegex = /hi kop ka bot/i;
+  if (hiKopKaBotRegex.test(message.content) && message.author.username === "Kopro") {
     message.reply({
       content: "Hello KING Kop"
     });
