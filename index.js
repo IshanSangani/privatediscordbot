@@ -43,14 +43,11 @@ client.on(Events.MessageCreate, async (message) => {
     }
   }
 
-  const content = message.content.toLowerCase();
-
-  if (content.startsWith("hi kop ka bot")&&message.author.username === "Kopro") {
+if (message.content.toLowerCase().startsWith("hi kop ka bot")&&message.author.username === "Kopro") {
     message.reply({
       content: "Hello KING Kop"
     });
   }
-
   if (message.author.username === "Ishan") { // Changed `globalName` to `username`
     message.reply({
       content: "Kya bolti Public"
