@@ -13,7 +13,7 @@ const client = new Client({
 // Define the words to look for
 const triggerWords = [
   'madarchod','bhadwa','bhadwe', 'bhenchod', 'mc', 'bc', 'teri maa ki', 'maa',
-  'chutiya', 'gandu', 'harami', 'saala', 'kutta', 'suar', 
+  'chutiya','mkc', 'gandu', 'harami', 'saala', 'kutta', 'suar', 
   'kaminey', 'ullu', 'ullu ka pattha', 'loda', 'lodu', 'chod',
   'randi', 'raand', 'chinal', 'kutti', 'chodu', 'bhosdike', 
   'bhosdika', 'lavde', 'lavda', 'gaand', 'chut', 'chut ki', 
@@ -46,16 +46,17 @@ client.on(Events.MessageCreate, async (message) => {
   }
 
 
-  if (message.content.toLowerCase().startsWith("hi kop ka bot")&& message.author.globalName === "Kopro") {
+ if (message.content.toLowerCase().startsWith("hi kop ka bot")&& message.author.globalName === "Kopro") {
     message.reply({
       
       content: "Hello KING Kop"
     });
   }
-  if (message.author.username === "Ishan") { // Changed `globalName` to `username`
+  else if(message.content.toLowerCase().startsWith("hi kop ka bot")||message.content.toLowerCase().startsWith("hello kop ka bot")){
+    let username = message.author.globalName;
     message.reply({
-      content: "Kya bolti Public"
-    }).catch(console.error);
+      content: "Hello, "+username+" 👋"
+    })
   }
 });
 
