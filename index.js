@@ -1,6 +1,6 @@
 const { Client, GatewayIntentBits, Events } = require('discord.js');
 require('dotenv').config();
-
+const rmeme = require('rmeme');
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
