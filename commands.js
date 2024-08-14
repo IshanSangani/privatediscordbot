@@ -13,6 +13,10 @@ const commands = [
     {
         name:"spongebob",
         description: "Squarepants",
+    },
+    {
+      name: 'meme',
+      description: 'Generates a Random Meme!',
     }
   ];
 
