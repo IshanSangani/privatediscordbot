@@ -81,6 +81,14 @@ client.on('interactionCreate', async (interaction) => {
   if (commandName === 'spongebob') {
     await interaction.reply('https://tenor.com/view/spongebob-backshots-gif-1172518849162068669');
   }
+  
+  if (commandName === 'meme') {
+    try {
+      const memeURL = rmeme.generate();
+      await interaction.reply({ content: 'Here is a random meme', files: [memeURL] });
+  } catch (error) {
+      console.log(error);
+  }
 });
 
 client.login(process.env.TOKEN).catch(console.error);
