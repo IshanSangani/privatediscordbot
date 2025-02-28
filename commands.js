@@ -1,6 +1,6 @@
 require('dotenv').config(); // Load environment variables from .env file
 
-const { REST, Routes } = require('discord.js'); // Ensure correct import
+const { REST, Routes, SlashCommandBuilder } = require('discord.js'); // Ensure correct import
 const commands = [
     {
       name: 'ping',
@@ -17,6 +17,16 @@ const commands = [
     {
       name: 'meme',
       description: 'Generates a Random Meme!',
+    },
+    {
+        name: 'hey',
+        description: 'Ask the AI a question',
+        options: [{
+            name: 'prompt',
+            type: 3, // STRING
+            description: 'Your question or prompt for the AI',
+            required: true,
+        }],
     }
   ];
 
