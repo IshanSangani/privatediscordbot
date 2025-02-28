@@ -165,12 +165,6 @@ client.on('interactionCreate', async (interaction) => {
     }
   }
 });
-async function listModels() {
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const models = await genAI.getAvailableModels();
-  console.log(models);
-}
 
-listModels();
 client.login(process.env.TOKEN).catch(console.error);
 console.log('Bot is online');
