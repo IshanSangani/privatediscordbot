@@ -1,8 +1,11 @@
 const { Client, GatewayIntentBits, Events } = require('discord.js');
 require('dotenv').config();
 const rmeme = require('rmeme');
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-
+// Initialize Gemini API
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const client = new Client({
   intents: [
@@ -61,7 +64,53 @@ client.on(Events.MessageCreate, async (message) => {
       content: "Hello, "+username+" 👋"
     })
   }
+
+  // Add a new command handler for "hey" followed by a prompt
+  if (message.content.toLowerCase().startsWith("hey ")) {
+    const prompt = message.content.substring(4).trim(); // Extract the prompt part
+    
+    if (prompt) {
+      try {
+        // Show typing indicator while processing
+        await message.channel.sendTyping();
+        
+        // Call AI API to get a response
+        const response = await getAIResponse(prompt);
+        
+        // Reply with the AI response
+        await message.reply({
+          content: response
+        });
+      } catch (error) {
+        console.error('Error getting AI response:', error);
+        await message.reply({
+          content: "Sorry, I couldn't process your request at the moment."
+        });
+      }
+    } else {
+      await message.reply({
+        content: "Please provide a question or prompt after 'hey'."
+      });
+    }
+  }
 });
+
+// Function to get AI response using Gemini API
+async function getAIResponse(prompt) {
+  try {
+    // Modify the prompt here
+    
+    const modifiedPrompt = `Respond to the following prompt as if you were a helpful Discord bot named Kop Ka Bot also maybe use Hinglish sometimes and dont be cringe: ${prompt}`;
+
+    const result = await model.generateContent(modifiedPrompt);
+    const response = result.response;
+    console.log(response.candidates[0].content.parts[0].text);
+    return response.candidates[0].content.parts[0].text;
+  } catch (error) {
+    console.error('Error calling Gemini API:', error);
+    return "I'm having trouble connecting to my brain right now. Please try again later.";
+  }
+}
 
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isCommand()) return;
@@ -93,6 +142,28 @@ client.on('interactionCreate', async (interaction) => {
       console.log(error);
   }
 }
+
+  if (commandName === 'hey') {
+    // Get the prompt from the options
+    const prompt = interaction.options.getString('prompt');
+    
+    if (prompt) {
+      await interaction.deferReply(); // Show "thinking" state
+      
+      try {
+        const response = await getAIResponse(prompt);
+        await interaction.editReply(response);
+      } catch (error) {
+        console.error('Error getting AI response:', error);
+        await interaction.editReply("Sorry, I couldn't process your request at the moment.");
+      }
+    } else {
+      await interaction.reply({
+        content: "Please provide a question or prompt.",
+        ephemeral: true
+      });
+    }
+  }
 });
 
 client.login(process.env.TOKEN).catch(console.error);
